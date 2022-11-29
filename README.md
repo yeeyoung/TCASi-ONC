@@ -23,6 +23,21 @@ ISSN={TBD},
 }
 ```
 
+## Get Started
+
+### Prerequisites
+- Matlab R2021a or higher version
+- Simulink with Simscape toolbox installed
+- Cadence Virtuoso IC618
+
+### Start Simulations
+
+- Fit device parameters of p- and n-OFETs using `./p-OFET/pofet_main.m` and `./n-OFET/nofet_main.m`. Note: Manually set the inflexion point that separates the double-exponential region and the above-threshold region in `./p-OFET/ID_Marinov_m2.m` and `./n-OFET/ID_Marinov_m2.m`.
+- Set device parameter values in `./oAH/oAH_main1.m`, `./oAH/oAH_main2.m`, `./oAH/oAH_main3.m` and `./oAH/oAH_main4.m` and start the oAH somatic circuit simulation.
+- Set device parameter values in `./oLDI/oLDI_main_Vdd.m`, and `./oLDI/oLDI_main_Vtau.m` and start the oLDI synaptic circuit simulation.
+- Set device parameter values in `./oDPI/oDPI_main_Vw1.m`, `./oDPI/oDPI_main_Vw2.m`, `./oDPI/oDPI_main_Vtau.m`, and `./oDPI/oDPI_main_Vth.m` and start the oDPI synaptic circuit simulation.
+- Set device parameter values in `./ONCs/SNN_run_main11.m`, `./ONCs/SNN_run_main22.m` and `./ONCs/SNN_run_main33.m` and start the simulation of the ONCs in three configurations.
+- Import the Verilog-A folder as an OFET_benchmark library in Cadence Virtuoso and start the DC simulation of single p-OFET or n-OFET device. Open the schematic of the resistive load inverter circuit in Virtuoso and start RL circuit simulation.
 
 
 
