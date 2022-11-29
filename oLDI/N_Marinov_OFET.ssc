@@ -1,0 +1,68 @@
+component OFET 
+% Marinov OFET
+% The OFET model was generated based on Marinov model and the parameters
+% were extracted from experimental data.
+%
+% Written by MJ Mir & Wkruger
+
+ nodes
+ g = foundation.electrical.electrical; % Gate:left
+ d = foundation.electrical.electrical; % Drain:right
+ s = foundation.electrical.electrical; % Source:right
+
+ end
+ variables
+ i = { 0, 'A' }; % Current
+ Vgs = { 0, 'V' }; % Voltage Source
+ Vds = { 0, 'V' }; % Voltage Gate
+ end
+ parameters
+%N-Type
+%N-Type
+%  Gamma = {-5.7058,'1'};
+Gamma = {-81.0999,'1'};
+%  Lambda = {0.0152,'1'};
+Lambda = {-.0372,'1'};
+%  Vbb = {7.9388,'1'};
+Vbb = {238.8215,'1'};
+%  Vss = {14.7670,'1'};
+Vss = {10.4711,'1'};
+aaa = {10.9973,'1'};
+bbb = {-0.98909,'1'};
+ccc = {-9.3428,'1'};
+ 
+ Mu0 = {0.032, '1'};
+ Vt = {0.35, 'V'};
+ Cox = {4.6462e-8,'1'};
+ W = {3200e-6,'1'};
+ L = {30e-6,'1'};
+ 
+ end
+ parameters(Access=private)
+     inv_v = {1, '1/V'}
+     inv_i = {1, '1/A'}
+     unit_i = {1, 'A'}
+ end 
+ intermediates
+ Vse = Vss*log(1+exp((((g.v-Vt)-s.v)*inv_v)/Vss));
+ Vde = Vss*log(1+exp((((g.v-Vt)-d.v)*inv_v)/Vss));
+ end
+ 
+ branches
+ i : d.i -> s.i;
+ end
+ equations
+Vgs == g.v-s.v;
+ Vds == d.v-s.v;
+ if (g.v-s.v)*inv_v>=-7
+     i == unit_i*(W/L)*(Mu0/(((Vbb)^Gamma)))*...
+         Cox*(((((Vse)^(Gamma+2)))-...
+         (((Vde)^(Gamma+2))))/(Gamma+2))*...
+         (1+Lambda*abs((Vds)*inv_v));
+ else
+     i == unit_i*exp(aaa*(exp(bbb*(g.v-s.v)*inv_v))+ccc);
+ end
+ 
+ 
+ end
+end
