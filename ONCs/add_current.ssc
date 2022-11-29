@@ -1,0 +1,42 @@
+component add_current
+% Electrical Add :0.75
+% This block adds signals of the three input currents:
+%
+% i = i_1 + i_2 + i_3 and u_1 = u_2 = u_3 = u
+%
+% All connections are physical signal ports.
+
+% Copyright yi yang.
+
+nodes
+    p1 = foundation.electrical.electrical; % +:left
+    p2 = foundation.electrical.electrical; % +:left
+    p3 = foundation.electrical.electrical; % +:left
+    p_sum = foundation.electrical.electrical; % =:right
+end
+
+variables
+    i1 = { 0, 'A' }; % Current
+    i2 = { 0, 'A' }; % Current
+    i3 = { 0, 'A' }; % Current
+    v1 = { 0, 'V' }; % Voltage
+    v2 = { 0, 'V' }; % Voltage
+    v3 = { 0, 'V' }; % Voltage
+end
+
+branches
+    i1 : p1.i -> p_sum.i;
+    i2 : p2.i -> p_sum.i;
+    i3 : p3.i -> p_sum.i;
+end
+
+equations
+    v1 == p1.v - p_sum.v;
+    v2 == p2.v - p_sum.v;
+    v3 == p3.v - p_sum.v;
+    v1 == 0;
+    v2 == 0;
+    v3 == 0;
+end
+
+end

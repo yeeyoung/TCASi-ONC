@@ -1,0 +1,30 @@
+component PS_to_electrical
+% Electrical Add :0.75
+% This block convert physical signal to electrical signal:
+%
+% out = vT
+%
+% All connections are physical signal ports.
+
+% Copyright yi yang.
+
+inputs
+    vT = { 0, 'V' }; % :bottom
+end
+
+nodes
+    p = foundation.electrical.electrical; % :top
+end
+
+variables(Access=private)
+    i = { 0, 'A' };
+    v = { 0, 'V' };
+end
+
+equations
+    i == 0;
+    v == p.v;
+    v == vT;
+end
+
+end
