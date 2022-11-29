@@ -1,0 +1,54 @@
+
+/* =================== Begin of the Verilog-A code of compact model "OFET" ========================================= */
+`include "constants.vams"
+`include "disciplines.vams"
+
+
+// Uncomment one of the following three lines, in order to have the OFET model with reduced access nodes by instantiation.
+ 
+module nOFET(G,S,D); //The simplest 3-terminal OFET model, only with nodes G,S,D for gate, source and drain terminals, respectively (use for circuit simulations)
+
+   electrical G,D,S; // terminals of the OFET for connection in circuits
+ 
+   parameter integer np=+1 from [-1:1] exclude 0;  // OFET polarity, np=+1 for n-type OFET, np=-1 for p-type OFET
+   parameter real W=100.0e-6 from (0:inf);              // channel width in [m] (default W=100um)
+   parameter real L=10.00e-6 from (0:inf);               // channel length in [m] (default L=10um)
+   parameter real d=200.0e-7 from (0:inf);               // thickness of dielectric layer
+   parameter real CI=0.00035 from [0:inf);               // unit-area capacitance of the gate dielectric in [F/m^2];  0.00035F/m^2 = 35nF/cm^2 (default, 100nm SiO2) 
+   parameter real VT=0 from (-inf:inf);                      // threshold voltage in [V] with its polarity (default VT=0 V)
+   parameter real uo=0.1e-4 from (0:inf);                 // (low-field) mobility in [m^2/Vs] at gate overdrive Vgamma=1V=np*(VGgamma-VT). Default uo=0.1e-4 m^2/Vs=0.1 cm^2/Vs.
+   parameter real Vgamma=1.0 from (0:inf);            // Gate overdrive voltage in [V] for uo. Default, Vgamma = 1.0 V.
+   parameter real gamma=0.6 from [0:inf);              // Mobility enhancement factor [numerical exponent]. Default, gamma=max(0,2*To/T-2)=0.6, for To~400K and T~300K.
+   parameter real Lambda=1.0 from [-0.01:0.01];    // Channel modulation factor
+   parameter real VSS=1.0 from (-inf:inf);                // sub-threshold slope voltage in [V], VSS[V/Np]=dV/d(ln(ID))= 0.43(gamma+2)V/dec = V/dec for gamma=0.33.
+   parameter real aaa=1.0 from (-inf:inf);                // Double exponential parameter
+   parameter real bbb=1.0 from (-inf:inf);                // Double exponential parameter
+   parameter real ccc=1.0 from (-inf:inf);                 // Double exponential parameter
+   
+   
+ 
+   parameter real eB=2 from [0:inf); //relative permittivity of the medium in the back of the semiconducting film, eB~2, for channel modulation.
+   `define CL  eB * `P_EPS0 * 0.01 / d 
+  
+   // variables
+   real VGTS, VGTD;      // Intermediate variables in overdrive functions
+   
+   analog begin
+      
+      /* ============ Generic OFET compact model ============ */
+      
+      // Source overdrive voltage
+      VGTS = VSS * ln(1+exp(np*(V(G) - VT - V(S))/VSS)); // Source overdrive voltage
+      
+      // Drain overdrive voltage
+      VGTD = VSS * ln(1+exp(np*(V(G) - VT - V(D))/VSS)); // Drain overdrive voltage
+      
+      // Define different operational regions
+	if (V(G)-V(S)<=1)
+		I(D,S) <+ np*W/L*uo/pow(Vgamma,gamma)*`CL*(pow(VGTS,gamma+2)-pow(VGTD,gamma+2))/(gamma+2)*(1+Lambda*abs(V(D)-V(S))); // Generic TFT charge drift DC model
+	else 
+		I(D,S) <+ np*exp(aaa*exp(bbb*(V(G)-V(S)))+ccc);
+   
+   end // of "analog begin"
+
+endmodule // module OFET;
