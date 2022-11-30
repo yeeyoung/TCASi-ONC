@@ -1,7 +1,7 @@
 # Modular Modeling of Analog Organic Neuromorphic Circuits: Towards Prototyping of Hardware-Level Spiking Neural Networks
 
 ![](https://img.shields.io/badge/license-GPL-blue.svg)
-![DOI](https://img.shields.io/badge/DOI-TBD-brightgreen.svg)
+![DOI](https://img.shields.io/badge/DOI-10.1109%2FTCSI.2022.3226163-brightgreen.svg)
 
 GitHub Repository Detailing the Software Code for *'Modular Modeling of Analog Organic Neuromorphic Circuits: Towards Prototyping of Hardware-Level Spiking Neural Networks'*, published in IEEE Transactions on Circuits and Systems I: Regular Papers (IEEE TCAS-I).
 
@@ -18,7 +18,7 @@ author={Y. Yang and M. J. Mirshojaeian Hosseini and W. Kruger and R. A. Robert},
 journal={IEEE Transactions on Circuits and Systems I: Regular Papers},
 title={Modular Modeling of Analog Organic Neuromorphic Circuits: Towards Prototyping of Hardware-Level Spiking Neural Networks},
 year={2022},
-doi={TBD},
+doi={10.1109/TCSI.2022.3226163},
 ISSN={TBD},
 }
 ```
