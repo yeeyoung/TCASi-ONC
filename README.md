@@ -13,13 +13,13 @@ This work proposes a novel modeling approach for analog organic circuits using v
 To cite our work, kindly use the following BibTex entry:
 
 ```
-@ARTICLE{8566143,
-author={Y. Yang and M. J. Mirshojaeian Hosseini and W. Kruger and R. A. Robert},
+@ARTICLE{9976306,
+author={Y. Yang and M. J. Mirshojaeian Hosseini and W. Kruger and R. A. Nawrocki},
 journal={IEEE Transactions on Circuits and Systems I: Regular Papers},
-title={Modular Modeling of Analog Organic Neuromorphic Circuits: Towards Prototyping of Hardware-Level Spiking Neural Networks},
+title={Modular Modeling of Analog Organic Neuromorphic Circuits: Toward Prototyping of Hardware-Level Spiking Neural Networks},
 year={2022},
 doi={10.1109/TCSI.2022.3226163},
-ISSN={TBD},
+ISSN={1549-8328},
 }
 ```
 
